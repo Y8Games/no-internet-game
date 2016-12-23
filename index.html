@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>No Internet</title>
+	<script src="js/lib/phaser.min.js"></script>
+	<script src="js/Boot.js"></script>
+	<script src="js/Preloader.js"></script>
+	<script src="js/MainMenu.js"></script>
+	<script src="js/Game.js"></script>
+	<script src="js/lib/box2d-plugin-full.min.js"></script>
+</head>
+<body style="padding:0; margin:0">
+
+<div id="gameContainer"></div>
+
+<script type="text/javascript">
+window.onload = function() {
+	var game = new Phaser.Game('100%', 400, Phaser.AUTO, 'gameContainer');
+	game.state.add('Boot', Boot);
+	game.state.add('Preloader', Preloader);
+	game.state.add('MainMenu', MainMenu);
+	game.state.add('Game', Game);
+	game.state.start('Boot');
+};
+
+window.idAsyncInit = function() {
+        ID.Event.subscribe('id.init', function(){
+			var fnCallback = function(response){
+			    console.log(response);
+			}
+
+			ID.getLoginStatus(fnCallback, true)
+        });
+
+        var idCallback = function(response){
+            if (response) {
+            }
+        }
+
+        ID.init({
+            appId : '57768153bbddbd36510dba50'
+        });
+    };
+    
+    (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src =  document.location.protocol == 'https:' ? "https://scdn.id.net/api/sdk.js" : "http://cdn.id.net/api/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'id-jssdk'));
+
+</script>
+
+</body>
+</html>
